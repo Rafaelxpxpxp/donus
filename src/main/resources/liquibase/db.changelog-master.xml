@@ -1,0 +1,41 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="rafael.ferreira" id="1">
+        <sql>
+            CREATE TABLE IF NOT EXISTS ACCOUNT(
+                ID SERIAL PRIMARY KEY,
+                NAME varchar(100) not null,
+                DOCUMENT_ID varchar(60) not null,
+                BALANCE decimal not null
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet author="rafael.ferreira" id="2-unique">
+        <addUniqueConstraint tableName="ACCOUNT" columnNames="DOCUMENT_ID"/>
+    </changeSet>
+
+
+    <changeSet author="rafael.ferreira" id="3">
+        <sql>
+            create table if not exists BALANCE_TRANSACTION(
+                ID serial primary key,
+                TRANSACTION_TYPE varchar(50) not null,
+                CREATED_AT timestamp not null,
+                AMOUNT decimal not null,
+                BALANCE decimal not null,
+                ACCOUNT_ID int,
+                constraint FK_ACCOUNT
+                foreign key(ACCOUNT_ID)
+                references ACCOUNT(ID)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>
