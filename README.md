@@ -18,6 +18,8 @@ Projeto Donus reactivo e orientado a eventos.
 Na pasta do projeto execute os seguintes comandos após ter instaldo docker e docker-compose na sua maquina.
 
 ```
+  mvn package
+
   docker-compose build .
   
   docker-compose up
