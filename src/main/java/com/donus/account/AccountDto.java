@@ -6,12 +6,15 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class AccountDto {
 
     @NotBlank
+    @Pattern(regexp = "[a-zA-Z\\u00C0-\\u017F\\s]+")
     private final String name;
 
     @CPF
@@ -41,5 +44,24 @@ public class AccountDto {
 
     public BigDecimal getBalance() {
         return balance;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final AccountDto that = (AccountDto) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(documentId, that.documentId) &&
+                Objects.equals(balance, that.balance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, documentId, balance);
     }
 }

@@ -3,11 +3,10 @@ package com.donus.balance;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
-import org.checkerframework.checker.index.qual.Positive;
 
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.Objects;
 
 public class DepositDto {
     @NotNull
@@ -30,5 +29,23 @@ public class DepositDto {
 
     public BigDecimal getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final DepositDto that = (DepositDto) o;
+        return Objects.equals(accountId, that.accountId) &&
+                Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountId, value);
     }
 }

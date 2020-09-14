@@ -45,7 +45,7 @@ public class BalanceTransactionServiceImpl implements BalanceTransactionService 
         return accountService.findAccount(accountId)
                 .flatMap(account -> saveTransaction(value, account.getBalance(), account.getId(), TransactionType.WITHDRAW))
                 .flatMap(balanceTransaction -> {
-                    final BigDecimal taxValue = value.multiply(new BigDecimal("0.01")).negate();
+                    final BigDecimal taxValue = value.multiply(new BigDecimal("0.01"));
                     return saveTransaction(taxValue, balanceTransaction.getBalance(), balanceTransaction.getAccountId(), TransactionType.WITHDRAW_TAX);
                 })
                 .doOnSuccess(balanceTransaction -> kafkaSender.send(TopicNames.WITHDRAW_TOPIC, new WithdrawDto(accountId, value)))

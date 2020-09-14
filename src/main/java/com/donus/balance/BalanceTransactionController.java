@@ -43,9 +43,7 @@ public class BalanceTransactionController {
 
     private Mono<ResponseEntity<?>> sendToTopic(final Object dto, final String topicName) {
         return kafkaSender.send(topicName, dto)
-                .map(kafkaResult -> ResponseEntity
-                        .accepted()
-                        .build());
+                .map(kafkaResult -> ResponseEntity.accepted().build());
     }
 
 }
