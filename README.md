@@ -6,7 +6,7 @@ Projeto Donus reactivo e orientado a eventos.
 
 ## Tecnologias
 - Java
-- Kakfa
+- Kafka
 - Webflux
 - Redis
 - Postgresql
@@ -15,7 +15,7 @@ Projeto Donus reactivo e orientado a eventos.
 
 ## Como iniciar
 
-Na pasta do projeto execute os seguintes comandos após ter instaldo docker e docker-compose na sua maquina.
+Na pasta do projeto execute os seguintes comandos após ter instaldo docker e docker-compose na sua máquina.
 
 ```
   mvn package
